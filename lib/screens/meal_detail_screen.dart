@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import '../models/meal.dart';
 import '../dummy-data.dart';
 
 class MealDetailScreen extends StatelessWidget {
   static const routeName = 'meal-details';
+  final Function toggleFavorite;
+  final Function isFavorite;
+  MealDetailScreen(this.toggleFavorite, this.isFavorite);
 
   @override
   Widget build(BuildContext context) {
@@ -75,11 +79,34 @@ class MealDetailScreen extends StatelessWidget {
           ],
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        child: Icon(Icons.archive),
-        onPressed: () {
-          Navigator.of(context).pop(id);
-        },
+      floatingActionButton: SpeedDial(
+        marginRight: 20,
+        marginBottom: 20,
+        animatedIcon: AnimatedIcons.menu_close,
+        animatedIconTheme: IconThemeData(size: 22),
+        backgroundColor: Theme.of(context).primaryColor,
+        elevation: 8,
+        shape: CircleBorder(),
+        children: [
+          SpeedDialChild(
+              child: Icon(Icons.archive),
+              backgroundColor: Theme.of(context).accentColor,
+              label: 'Archive',
+              labelStyle: TextStyle(fontSize: 18),
+              onTap: () {
+                Navigator.of(context).pop(id);
+              }),
+          SpeedDialChild(
+              child: isFavorite(id)
+                  ? Icon(Icons.favorite_border)
+                  : Icon(Icons.favorite),
+              backgroundColor: Theme.of(context).accentColor,
+              label: isFavorite(id) ? 'Remove from Favorite' : 'Favorite',
+              labelStyle: TextStyle(fontSize: 18),
+              onTap: () {
+                toggleFavorite(id);
+              }),
+        ],
       ),
     );
   }

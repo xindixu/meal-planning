@@ -20,12 +20,16 @@ class _FiltersScreenState extends State<FiltersScreen> {
   var _vegan = false;
   var _vegetarian = false;
 
-  @override
-  void initState() {
+  void _conntectToGlobalFilter() {
     _glutenFree = widget.filters.glutenFree;
     _lactoseFree = widget.filters.lactoseFree;
     _vegan = widget.filters.vegan;
     _vegetarian = widget.filters.vegetarian;
+  }
+
+  @override
+  void initState() {
+    _conntectToGlobalFilter();
     super.initState();
   }
 
@@ -79,17 +83,41 @@ class _FiltersScreenState extends State<FiltersScreen> {
               ],
             ),
           ),
-          FlatButton(
-            child: Text('Save'),
-            onPressed: () {
-              Filter filters = Filter(
-                  glutenFree: _glutenFree,
-                  lactoseFree: _lactoseFree,
-                  vegan: _vegan,
-                  vegetarian: _vegetarian);
-
-              widget.saveFilters(filters);
-            },
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 30),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: <Widget>[
+                OutlineButton(
+                  child: Text('Clear'),
+                  borderSide: BorderSide(color: Theme.of(context).buttonColor),
+                  onPressed: () {
+                    Filter filters = Filter(
+                        glutenFree: false,
+                        lactoseFree: false,
+                        vegan: false,
+                        vegetarian: false);
+                    widget.saveFilters(filters);
+                    _conntectToGlobalFilter();
+                  },
+                ),
+                SizedBox(
+                  width: 10,
+                ),
+                RaisedButton(
+                  child: Text('Save'),
+                  color: Theme.of(context).buttonColor,
+                  onPressed: () {
+                    Filter filters = Filter(
+                        glutenFree: _glutenFree,
+                        lactoseFree: _lactoseFree,
+                        vegan: _vegan,
+                        vegetarian: _vegetarian);
+                    widget.saveFilters(filters);
+                  },
+                )
+              ],
+            ),
           )
         ],
       ),
