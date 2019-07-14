@@ -51,22 +51,20 @@ class _CategoryMealsScreenState extends State<CategoryMealsScreen> {
       appBar: AppBar(
         title: Text('$categoryTitle Recipes'),
       ),
-      body: Center(
-        child: ListView.builder(
-          itemBuilder: (context, index) {
-            final meal = categoryMeals[index];
-            return MealItem(
-              id: meal.id,
-              title: meal.title,
-              imageUrl: meal.imageUrl,
-              duration: meal.duration,
-              complexity: meal.complexity,
-              affordability: meal.affordability,
-              removeItem: _removeItem,
-            );
-          },
-          itemCount: categoryMeals.length,
-        ),
+      body: ListView.builder(
+        itemBuilder: (context, index) {
+          final meal = categoryMeals[index];
+          return MealItem(
+            id: meal.id,
+            title: meal.title,
+            imageUrl: meal.imageUrl,
+            duration: meal.duration,
+            complexity: meal.complexity,
+            affordability: meal.affordability,
+            removeItem: _removeItem,
+          );
+        },
+        itemCount: categoryMeals.length,
       ),
     );
   }
