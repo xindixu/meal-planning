@@ -13,7 +13,7 @@ class MyApp extends StatelessWidget {
       title: 'DeliMeals',
       theme: ThemeData(
           primarySwatch: Colors.orange,
-          accentColor: Colors.brown,
+          accentColor: Colors.amberAccent,
           fontFamily: 'Raleway',
           textTheme: ThemeData.light().textTheme.copyWith(
                 body1: TextStyle(
