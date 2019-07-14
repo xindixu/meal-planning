@@ -13,7 +13,7 @@ class FavoritesScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     if (meals.isEmpty) {
       return Center(
-        child: Text('You have no favoriates yet! Start to add some!c'),
+        child: Text('You have no favoriates yet! Start to add some!'),
       );
     } else {
       return ListView.builder(
@@ -26,6 +26,7 @@ class FavoritesScreen extends StatelessWidget {
             duration: meal.duration,
             complexity: meal.complexity,
             affordability: meal.affordability,
+            removeItem: () {},
           );
         },
         itemCount: meals.length,

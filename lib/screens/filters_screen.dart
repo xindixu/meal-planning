@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'dart:async';
+
 import '../widgets/main_drawer.dart';
 
 import '../models/filter.dart';
@@ -91,7 +93,7 @@ class _FiltersScreenState extends State<FiltersScreen> {
                 OutlineButton(
                   child: Text('Clear'),
                   borderSide: BorderSide(color: Theme.of(context).buttonColor),
-                  onPressed: () {
+                  onPressed: () async {
                     Filter filters = Filter(
                         glutenFree: false,
                         lactoseFree: false,
@@ -99,6 +101,9 @@ class _FiltersScreenState extends State<FiltersScreen> {
                         vegetarian: false);
                     widget.saveFilters(filters);
                     _conntectToGlobalFilter();
+                    await new Future.delayed(
+                        const Duration(milliseconds: 1000));
+                    Navigator.of(context).pushReplacementNamed('/');
                   },
                 ),
                 SizedBox(
@@ -107,13 +112,15 @@ class _FiltersScreenState extends State<FiltersScreen> {
                 RaisedButton(
                   child: Text('Save'),
                   color: Theme.of(context).buttonColor,
-                  onPressed: () {
+                  onPressed: () async {
                     Filter filters = Filter(
                         glutenFree: _glutenFree,
                         lactoseFree: _lactoseFree,
                         vegan: _vegan,
                         vegetarian: _vegetarian);
                     widget.saveFilters(filters);
+                    await new Future.delayed(const Duration(milliseconds: 500));
+                    Navigator.of(context).pushReplacementNamed('/');
                   },
                 )
               ],
